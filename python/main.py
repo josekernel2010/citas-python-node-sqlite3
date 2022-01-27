@@ -9,41 +9,52 @@ from pyfiglet import *
 # Menu
 def inicio():
     os.system('cls')
-    while True:
+    
+    try:
+        while True:
+            # funcion requests para obtener el token para la autenticacion
+            requests.get('http://localhost:3000/citas-medicas/todas')
+            titulo = Figlet(font='standard')
+
+            print(titulo.renderText('Citas  Medicas'))
+            print("===========================================")
+            print(":: Escoja una de las siguientes opciones ::")
+            print("===========================================")
+            print("\n\t1. Registrar una cita médica")
+            print("\t2. Ver todas las citas médicas") 
+            print("\t3. Buscar citas médicas de hoy")
+            print("\t4. Modificar estado de la cita")
+            print("\t5. Eliminar cita")
+            print("\t6. Salir")
+
+            opcion = input("\n\tIngrese la opción: ")
+
+            if opcion == "1":
+                nueva_cita()
+            elif opcion == "2":
+                mostrar_citas()
+            elif opcion == "3":
+                buscar_citas_fecha()
+            elif opcion == "4":
+                modificar_estado()
+            elif opcion == "5":
+                eliminar_cita()
+            elif opcion == "6":
+                break
+            else:
+                print("\n\t=======================")
+                print("\t:: Opción inválida ::")
+                print("\t=======================")
+                input("Presione una tecla para continuar...")
+                os.system("cls")
+    except:
+        print("\n\t***********************************")
+        print('\t:: Error de conección ¯\_(ツ)_/¯ ::')
+        print("\t***********************************")
+        print("\tSolucione el problema e intente nuevamente")
+        input("\tPresione una tecla para salir...")
+        return False
         
-        titulo = Figlet(font='standard')
-
-        print(titulo.renderText('Citas  Medicas'))
-        print("===========================================")
-        print(":: Escoja una de las siguientes opciones ::")
-        print("===========================================")
-        print("\n\t1. Registrar una cita médica")
-        print("\t2. Ver todas las citas médicas")
-        print("\t3. Buscar citas médicas de hoy")
-        print("\t4. Modificar estado de la cita")
-        print("\t5. Eliminar cita")
-        print("\t6. Salir")
-
-        opcion = input("\n\tIngrese la opción: ")
-
-        if opcion == "1":
-            nueva_cita()
-        elif opcion == "2":
-            mostrar_citas()
-        elif opcion == "3":
-            buscar_citas_fecha()
-        elif opcion == "4":
-            modificar_estado()
-        elif opcion == "5":
-            eliminar_cita()
-        elif opcion == "6":
-            break
-        else:
-            print("\n\t=======================")
-            print("\t:: Opción inválida ::")
-            print("\t=======================")
-            input("Presione una tecla para continuar...")
-            os.system("cls")
 
 
     #1. Registro de una nueva cita
@@ -109,8 +120,8 @@ def buscar_citas_fecha():
         print("\t======================")   
         input("\n\tPresione enter para continuar...")
         os.system('cls')
- 
-    
+
+
     #4. Modificar estado de la cita
 def modificar_estado():
     os.system('cls')
@@ -193,13 +204,15 @@ def eliminar_cita():
             input("\n\tPresione enter para continuar...")
             os.system('cls')
             
-    except ValueError :
+    except ValueError:
+        
         print("\n\t===================================")
         print("\t::   El valor  no es correcto   ::")
         print("\t===================================")
         input("\n\tPresione enter para continuar...")
         os.system('cls')
-                
+        
+    
     
     # Funcion de ayuda para solicitar fecha
 def solicitar_fecha():
