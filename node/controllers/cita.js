@@ -23,6 +23,18 @@ const buscar = (req, res) => {
   });
 };
 
+const buscar_id = (req, res) => {
+  const { id } = req.params;
+  const sql = `select * from cita where id = '${id}' `;
+  conexion.all(sql, (err, result) => {
+    if (err) {
+      res.send("Ha ocurrido un error: " + err);
+    } else {
+      res.send(result);
+    }
+  });
+};
+
 const registrar = (req, res) => {
   const { paciente, detalle, fecha, hora, estado } = req.body;
 
@@ -33,7 +45,7 @@ const registrar = (req, res) => {
     if (err) {
       res.send("Ha ocurrido un error: " + err);
     } else {
-      res.send("Cita registrada");
+      res.send("**** Cita registrada *****");
     }
   });
 };
@@ -48,7 +60,7 @@ const modificar = (req, res) => {
     if (err) {
       res.send("Ha ocurrido un error: " + err);
     } else {
-      res.send("Cita modificada");
+      res.send("**** Cita modificada ****");
     }
   });
 };
@@ -67,4 +79,4 @@ const elimnar = (req, res) => {
   });
 };
 
-module.exports = { todas, buscar, registrar, modificar, elimnar };
+module.exports = { todas, buscar, buscar_id, registrar, modificar, elimnar };
